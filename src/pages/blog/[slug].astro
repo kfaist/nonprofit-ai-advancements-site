@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const allPosts = await getCollection('posts');
+const { slug } = Astro.params;
+const post = allPosts.find((p) => p.slug === slug);
+if (!post) {
+  throw new Error(`Post not found: ${slug}`);
+}
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <h1>{post.data.title}</h1>
+  <p>{post.data.date}</p>
+  <post.Content />
+</Base>
