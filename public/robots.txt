@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kfaist.github.io/nonprofit-ai-advancements-site/sitemap.xml
