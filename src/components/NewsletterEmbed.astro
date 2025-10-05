@@ -1,0 +1,15 @@
+---
+const { BEEHIIV_PUBLICATION_ID, NEWSLETTER_PROVIDER } = import.meta.env;
+const showBeehiiv = NEWSLETTER_PROVIDER === 'beehiiv' && BEEHIIV_PUBLICATION_ID;
+---
+{showBeehiiv ? (
+  <div class="newsletter-embed">
+    <iframe
+      src={`https://embeds.beehiiv.com/subscribe/${BEEHIIV_PUBLICATION_ID}`}
+      data-test="beehiiv-embed"
+      style="width:100%;height:52px;border:0;overflow:hidden;"
+      frameborder="0"
+      scrolling="no"
+    />
+  </div>
+) : null}
