@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const allPosts = (await getCollection('posts')).filter((p) => !p.data.draft);
+const tags = Array.from(new Set(allPosts.flatMap((p) => p.data.tags ?? []))).sort();
+---
+
+<Base title="Tags" description={`Tags for Nonprofit AI Advancements`}>
+  <h1>Tags</h1>
+  <ul>
+    {tags.map((tag) => {
+      const count = allPosts.filter((p) => (p.data.tags ?? []).includes(tag)).length;
+      return (
+        <li>
+          <a href={`/tags/${tag}/`}>{tag}</a> ({count})
+        </li>
+      );
+    })}
+  </ul>
+</Base>
