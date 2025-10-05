@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+const title = 'Welcome to Nonprofit AI Advancements';
+const description = 'Exploring how AI enhances nonprofit work and global good.';
+---
+
+<Base {title} {description}>
+  <h1>Welcome to Nonprofit AI Advancements</h1>
+  <p>This site explores how artificial intelligence is advancing charitable and nonprofit endeavors.</p>
+  <p><a href={`${import.meta.env.BASE_URL}blog/`}>Read our blog</a></p>
+</Base>
