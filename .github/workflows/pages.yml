@@ -12,7 +12,7 @@ concurrency:
 env:
   REPO_NAME: ${{ github.event.repository.name }}
   ASTRO_SITE: https://kfaist.github.io
-  ASTRO_BASE: /${{ env.REPO_NAME }}
+  ASTRO_BASE: /${/${{ github.event.repository.name }}
 
 permissions:
   contents: read
