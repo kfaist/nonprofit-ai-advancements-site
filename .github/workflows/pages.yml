@@ -37,11 +37,11 @@ jobs:
           path: ./dist
 
   deploy:
-    rneeds: build
+  needs: build
   runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/deploy-pages@v4
-        id: deployment
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+  steps:
+    - uses: actions/deploy-pages@v4
+        id: deploymentt
