@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+
+const { tag } = Astro.params;
+const posts = (await getCollection('posts'))
+  .filter((p) => !p.data.draft && (p.data.tags ?? []).includes(tag))
+  .sort(
+    (a, b) =>
+      new Date(b.data.date).getTime() -
+      new Date(a.data.date).getTime(),
+  );
+---
+<Base
+  title={`Posts tagged ${tag}`}
+  description={`Posts about ${tag} on ${import.meta.env.PUBLIC_SITE_NAME ?? 'Nonprofit AI Advancements'}`}
+>
+  <h1>Tag: {tag}</h1>
+  {posts.length === 0 ? (
+    <p>No posts found for this tag.</p>
+  ) : (
+    <ul>
+      {posts.map((post) => (
+        <li>
+          <a href={`${import.meta.env.BASE_URL}blog/${post.slug}/`}>
+            {post.data.title}
+          </a>{' '}
+          –{' '}
+          <time datetime={post.data.date}>
+            {post.data.date}
+          </time>
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>
