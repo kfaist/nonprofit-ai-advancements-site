@@ -32,16 +32,16 @@ jobs:
         env:
           ASTRO_SITE: ${{ env.ASTRO_SITE }}
           ASTRO_BASE: ${{ env.ASTRO_BASE }}
-      - uses: actions/upload-pages-artifact@v2
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: buil3
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/deploy-pages@v3
+      - uses: actions/deploy-pages@v4
         id: deployment
