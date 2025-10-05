@@ -1,0 +1,88 @@
+---
+const {
+  title = '',
+  description = '',
+  canonical,
+  date,
+  lastmod,
+  tags = [],
+} = Astro.props;
+
+// Metadata defaults for the nonprofit site; fall back to env variables.
+const siteName =
+  import.meta.env.PUBLIC_SITE_NAME ??
+  'Nonprofit AI Advancements';
+const siteUrl =
+  import.meta.env.PUBLIC_SITE_URL ??
+  'https://kfaist.github.io/nonprofit-ai-advancements-site';
+const orgName =
+  import.meta.env.PUBLIC_ORG_NAME ?? 'KFAIST';
+const authorName =
+  import.meta.env.PUBLIC_AUTHOR_NAME ?? 'kfaist';
+const authorUrl =
+  import.meta.env.PUBLIC_AUTHOR_URL ??
+  'https://github.com/kfaist';
+const twitterHandle =
+  import.meta.env.PUBLIC_TWITTER_HANDLE ?? '@kfaist';
+const defaultOgImage =
+  import.meta.env.PUBLIC_DEFAULT_OG_IMAGE ??
+  `${siteUrl}/og/og-default.png`;
+
+const pageUrl = canonical ?? `${siteUrl}${Astro.url.pathname}`;
+const isArticle = Boolean(date);
+const publishedDate = date;
+const modifiedDate = lastmod ?? date;
+---
+
+<link rel="canonical" href={pageUrl} />
+<title>{title ? `${title} | ${siteName}` : siteName}</title>
+<meta name="description" content={description} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={title ? `${title} | ${siteName}` : siteName} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:image" content={defaultOgImage} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:type" content={isArticle ? 'article' : 'website'} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={twitterHandle} />
+<meta name="twitter:title" content={title ? `${title} | ${siteName}` : siteName} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={defaultOgImage} />
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+  {JSON.stringify(
+    isArticle
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: title,
+          description: description,
+          author: { '@type': 'Person', name: authorName, url: authorUrl },
+          datePublished: publishedDate,
+          dateModified: modifiedDate,
+          image: defaultOgImage,
+          mainEntityOfPage: pageUrl,
+          publisher: {
+            '@type': 'Organization',
+            name: orgName,
+            url: siteUrl,
+          },
+        }
+      : {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: siteName,
+          url: siteUrl,
+          publisher: {
+            '@type': 'Organization',
+            name: orgName,
+            url: siteUrl,
+          },
+        },
+  )}
+</script>
