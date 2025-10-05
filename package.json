@@ -4,11 +4,13 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "prebuild": "node scripts/affiliate_linker.mjs"
   },
   "dependencies": {
     "astro": "^3.0.0",
     "@astrojs/rss": "^3.0.0",
-    "@astrojs/sitemap": "^3.0.0"
+    "@astrojs/sitemap": "^3.0.0",
+    "js-yaml": "^4.1.0"
   }
 }
