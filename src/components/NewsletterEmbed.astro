@@ -1,0 +1,28 @@
+---
+const provider = (import.meta.env.NEWSLETTER_PROVIDER || '').toLowerCase();
+const beehiivId = import.meta.env.BEEHIIV_PUBLICATION_ID;
+const convertKitFormId = import.meta.env.CONVERTKIT_FORM_ID;
+---
+
+{provider === 'beehiiv' && beehiivId && (
+  <div class="newsletter-embed">
+    <iframe
+      src={`https://embeds.beehiiv.com/${beehiivId}`}
+      data-test-id="beehiiv-embed"
+      width="100%"
+      height="350"
+      frameborder="0"
+      scrolling="no"
+    ></iframe>
+  </div>
+)}
+
+{provider === 'convertkit' && convertKitFormId && (
+  <div class="newsletter-embed">
+    <script
+      async
+      data-uid={convertKitFormId}
+      src={`https://f.convertkit.com/${convertKitFormId}/form.js`}
+    ></script>
+  </div>
+)}
